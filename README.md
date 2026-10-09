@@ -28,6 +28,8 @@
 
 ## 安装和使用
 
+本项目与梁启超 Skill 一样，直接通过公开仓库发布，不使用 GitHub Releases。
+
 ```bash
 npx skills add constantin2088/ye-maozhong-skill
 ```
