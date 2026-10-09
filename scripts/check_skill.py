@@ -25,7 +25,7 @@ def check(root,release=False):
     if release:
         for file in root.rglob('*.md'):
             if '.git' not in file.parts and re.search(r'\b(?:TODO|DRAFT)\b', file.read_text(encoding='utf-8')):
-                problems.append('unfinished '+str(file.relative_to(root)))
+                problems.append('unfinished '+file.relative_to(root).as_posix())
         if skill.exists():
             name=re.search(r'^name:\s*(\S+)',skill.read_text(encoding='utf-8'),re.M)
             if not name or name.group(1)!=root.resolve().name:problems.append('skill name must match directory')
