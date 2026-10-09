@@ -1,71 +1,62 @@
 <!-- SERIES:START -->
 > **属于 [Chinese Thinkers as Skills 系列](https://github.com/constantin2088/chinese-thinkers-skills)** · [完整作品目录](https://github.com/constantin2088/chinese-thinkers-skills#作品目录)
 
-**相关推荐**：[梁启超·自新与变局](https://github.com/constantin2088/liang-qichao-skill) · [叶茂中·冲突营销](https://github.com/constantin2088/ye-maozhong-skill)
+**相关推荐**：[梁启超·自新与变局](https://github.com/constantin2088/liang-qichao-skill)
 
 > 系列入口与推荐由总仓库 catalog/skills.json 生成。
 <!-- SERIES:END -->
 
-# Thinkers Skill Template / 中国思想家 Agent Skill 开发模板
+# 叶茂中·冲突营销 Skill
 
-**A small, dependency-free starter for research-grounded Agent Skills.**
+**从消费冲突到产品解决，再到可检验的表达。** 适用于卖点模糊、品牌同质化、营销转化差的中文 Agent 任务。
 
-本仓库是 Chinese Thinkers as Skills 系列的开发模板，**不是一个可以直接安装的成品 Skill**。它提供生成器、史料卡、评测模板与发布检查，帮助每个新项目保持统一工程质量、保留独特的方法论。
+独立开源的现代方法转译，未获叶茂中本人、家属或相关机构授权；不模拟人物背书，不保证增长效果。
 
-[系列首页](https://github.com/constantin2088/chinese-thinkers-skills) · [官方 Agent Skills 规范](https://agentskills.io/specification) · [贡献规范](CONTRIBUTING.md)
+## 30 秒看效果
 
-## 60 秒创建一个新 Skill
+> 我们做上班族便利餐，想强调“健康”，但顾客嫌贵。预算 3,000 元，怎么改？
+
+先把“嫌贵”拆成售价、饱腹、口味、等待与信任的不同解释。候选冲突：想省午休时间，却担心便捷餐不合口味；想看懂配料，却不愿为抽象“健康”溢价。对比现有替代和真实产品能力后，只对已证实的可看配料、准时取餐等优势写表达。用相同渠道、价格和随机分流的对照测试支付转化，同时监控退款与履约；没样本时不宣布成功。
+
+→ [完整演示和实验表](examples/meal.md)。这里的预算与情境为教学假设，未执行投放。
+
+## 工作流
+
+购买情境 → 候选冲突 → 消费者／竞争／自身三方检查 → 产品解决 → 有证据的表达 → 对照实验与反证。
+
+从叶茂中署名的[《冲突是营销的魂》](https://www.jjckb.cn/2017-08/29/c_136564522.htm)提取需求洞察与三方检查线索；证据表、淘汰门槛和实验设计均是本项目的现代实现。详见 [来源](references/sources.md) 和 [方法分层](references/frameworks.md)。
+
+## 安装和使用
 
 ```bash
-python scripts/new_skill.py \
-  --slug chen-yinke-research-skill \
-  --name-zh "陈寅恪" \
-  --focus "史料互证与深度研究" \
-  --output ./dist
+npx skills add constantin2088/ye-maozhong-skill
 ```
 
-会生成 `dist/chen-yinke-research-skill/`，其中包含 `SKILL.md`、README、史料表、现代转译边界、Demo 和评测文件。
+也可把仓库完整复制到客户端支持的 skills 目录，保留 SKILL.md 与 references。具体发现路径依客户端文档；本次未声称所有客户端安装均已验证。
+
+示例请求：
+
+- 用冲突营销分析这个产品。把消费者证据与我们的猜测分开，别先写口号。
+- 对这三条卖点做消费者、竞争替代、产品能力三方筛选。
+- 为我们的新表达设计小预算对照实验，给出停止条件。
+
+## 示例与反例
+
+| 情境 | 核心判断 | 完整案例 |
+|---|---|---|
+| 便利餐 | 抽象健康口号需要具体购买证据 | [meal](examples/meal.md) |
+| B2B 软件 | 少做报表与责任可追溯要同时解决 | [b2b](examples/b2b.md) |
+| 质量投诉 | 产品兑现失败先整改，再考虑传播 | [failure](examples/failure.md) |
+
+这些为项目原创虚构演示，不是叶茂中客户案例或已验证商业成果。
+
+## 验证与发布
 
 ```bash
-python scripts/check_skill.py dist/chen-yinke-research-skill
-```
-
-生成结果**只是一个需要研究和填写的草案**。除非补齐标记内容并通过发布检查，否则不要公开宣传为完成的历史人物 Skill。
-
-```bash
-python scripts/check_skill.py dist/chen-yinke-research-skill --release
-```
-
-`--release` 会拒绝任何 `TODO:` 标记，并检查核心文件存在、Skill 名称和 frontmatter 合规。
-
-## 开发步骤
-
-1. 找到足够的一手作品和可核查资料，填好 `references/sources.md`。
-2. 为人物建立真正独特的方法论，不要从别人的 Skill 直接替换姓名。
-3. 把来源观点与项目现代转译分层，标出失效边界。
-4. 写出能在真实任务上逐步执行的工作流。
-5. 加入真实案例、负面案例、误触发与边界测试。
-6. 运行结构检查，在目标 Agent 里做实际安装与回答测试。
-7. 审核历史引语、版权与隐私后再发布。
-
-## 技术原则
-
-- 只需要 Python 3.9+ 标准库，不依赖外部服务。
-- `SKILL.md` 是 Agent Skills 核心入口，需要 YAML `name` / `description`。
-- 多文档采用渐进披露：核心流程在 `SKILL.md`，证据和详细研究在 `references/`。
-- 不是历史人物 Persona、宣传工具，也不授予任何现代事件的虚构背书。
-
-## 测试
-
-```bash
+python scripts/check_skill.py . --release
 python -m unittest discover -s tests -v
 ```
 
-## License
+结构检查和实验计算有自动测试；模型回答的语义质量另按 [行为评测](evals/test-cases.md) 人工评分。不能把文件校验通过当成模型评测通过。执行记录见 [评测记录](evals/results.md)。
 
-MIT License · Maintainer: [constantin2088](https://github.com/constantin2088)
-## 系列关联自动继承
-
-新人物会自动带上系列标识、总仓库回链、已发布作品推荐与每日 README 刷新工作流。模板快照由总仓库发布脚本生成；请勿手改作品列表。
-
-发布后运行 `python scripts/sync_series.py --slug <仓库名>` 刷新 README，运行 `python scripts/sync_series.py --slug <仓库名> --metadata --apply` 同步 GitHub About。统一 Topics、Website 与推荐来自 [唯一目录](https://github.com/constantin2088/chinese-thinkers-skills/blob/main/catalog/skills.json)。About 操作需要已有管理登录；普通 CI 只写本仓库 README。
+贡献需补来源、边界、示例和回归用例。发布步骤见 [PUBLISHING.md](PUBLISHING.md)，版权归属见 [NOTICE.md](NOTICE.md)。MIT 仅覆盖本项目原创内容。
