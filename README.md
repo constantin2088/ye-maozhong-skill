@@ -57,6 +57,6 @@ python scripts/check_skill.py . --release
 python -m unittest discover -s tests -v
 ```
 
-结构检查和实验计算有自动测试；模型回答的语义质量另按 [行为评测](evals/test-cases.md) 人工评分。不能把文件校验通过当成模型评测通过。执行记录见 [评测记录](evals/results.md)。
+结构检查和实验计算有自动测试；可运行 `python scripts/experiment_metrics.py 10 100 15 100` 查看小样本差值及不确定区间。模型回答的语义质量另按 [行为评测](evals/test-cases.md) 人工评分。不能把文件校验通过当成模型评测通过。执行记录见 [评测记录](evals/results.md)。
 
 贡献需补来源、边界、示例和回归用例。发布步骤见 [PUBLISHING.md](PUBLISHING.md)，版权归属见 [NOTICE.md](NOTICE.md)。MIT 仅覆盖本项目原创内容。
